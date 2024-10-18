@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Parsed JSON Data</h2>
+        
+        <h3>Company Details</h3>
+        <p><strong>CIN:</strong> {{ data['data']['company']['cin'] }}</p>
+        <p><strong>Legal Name:</strong> {{ data['data']['company']['legal_name'] }}</p>
+        <p><strong>Incorporation Date:</strong> {{ data['data']['company']['incorporation_date'] }}</p>
+        <p><strong>Paid Up Capital:</strong> {{ data['data']['company']['paid_up_capital'] }}</p>
+
+        <h3>Registered Address</h3>
+        <p>{{ data['data']['company']['registered_address']['full_address'] }}</p>
+        
+        <h3>Directors</h3>
+        <ul>
+            {% for director in data['data']['authorized_signatories'] %}
+            <li>
+                <strong>Name:</strong> {{ director['name'] }}<br>
+                <strong>PAN:</strong> {{ director['pan'] }}<br>
+                <strong>Designation:</strong> {{ director['designation'] }}<br>
+                <strong>Age:</strong> {{ director['age'] }}<br>
+                <strong>Address:</strong> {{ director['address']['address_line1'] }}, {{ director['address']['city'] }}, {{ director['address']['state'] }}
+            </li>
+            {% endfor %}
+        </ul>
+        
+        <a href="{{ url_for('upload_file') }}" class="btn btn-primary">Upload Another File</a>
+    </div>
+</body>
+</html>
